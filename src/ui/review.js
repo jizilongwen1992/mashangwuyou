@@ -6,14 +6,14 @@
  *   屏幕坐标 —— 单位坐标 × dispScale。鼠标事件先减去舞台位置再除以 dispScale 就回到单位坐标。
  */
 
-import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903170948'
-import * as job from '../job.js?v=20260903170948'
-import * as store from '../store.js?v=20260903170948'
-import * as pdfdoc from '../pdfdoc.js?v=20260903170948'
-import * as textpick from '../textpick.js?v=20260903170948'
-import { detectLines } from '../detect.js?v=20260903170948'
-import { loadBitmap } from '../redact.js?v=20260903170948'
-import { go } from '../main.js?v=20260903170948'
+import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903172307'
+import * as job from '../job.js?v=20260903172307'
+import * as store from '../store.js?v=20260903172307'
+import * as pdfdoc from '../pdfdoc.js?v=20260903172307'
+import * as textpick from '../textpick.js?v=20260903172307'
+import { detectLines } from '../detect.js?v=20260903172307'
+import { loadBitmap } from '../redact.js?v=20260903172307'
+import { go } from '../main.js?v=20260903172307'
 
 const HANDLE = 12          // 右下角把手的命中半径（屏幕像素）
 const TAP_SLOP = 4         // 移动不到这么多像素就算点一下

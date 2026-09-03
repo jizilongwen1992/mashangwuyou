@@ -1,11 +1,11 @@
 /** 首页：设置要打码的信息 + 选文件 + 开始审阅。 */
 
-import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903170948'
-import * as store from '../store.js?v=20260903170948'
-import * as job from '../job.js?v=20260903170948'
-import * as pdfdoc from '../pdfdoc.js?v=20260903170948'
-import { loadBitmap } from '../redact.js?v=20260903170948'
-import { go } from '../main.js?v=20260903170948'
+import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903172307'
+import * as store from '../store.js?v=20260903172307'
+import * as job from '../job.js?v=20260903172307'
+import * as pdfdoc from '../pdfdoc.js?v=20260903172307'
+import { loadBitmap } from '../redact.js?v=20260903172307'
+import { go } from '../main.js?v=20260903172307'
 
 const MAX_MB = 50
 const ACCEPT = '.jpg,.jpeg,.png,.webp,.bmp,.pdf,image/*,application/pdf'
