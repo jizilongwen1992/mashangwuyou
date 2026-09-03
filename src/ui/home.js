@@ -1,11 +1,11 @@
 /** 首页：设置要打码的信息 + 选文件 + 开始审阅。 */
 
-import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903163236'
-import * as store from '../store.js?v=20260903163236'
-import * as job from '../job.js?v=20260903163236'
-import * as pdfdoc from '../pdfdoc.js?v=20260903163236'
-import { loadBitmap } from '../redact.js?v=20260903163236'
-import { go } from '../main.js?v=20260903163236'
+import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903164012'
+import * as store from '../store.js?v=20260903164012'
+import * as job from '../job.js?v=20260903164012'
+import * as pdfdoc from '../pdfdoc.js?v=20260903164012'
+import { loadBitmap } from '../redact.js?v=20260903164012'
+import { go } from '../main.js?v=20260903164012'
 
 const MAX_MB = 50
 const ACCEPT = '.jpg,.jpeg,.png,.webp,.bmp,.pdf,image/*,application/pdf'
@@ -24,7 +24,7 @@ export function render(root) {
 
 function shell() {
   return `
-  <h1 class="hero-title">一键打码 · 码上无忧</h1>
+  <h1 class="hero-title">职称材料，打码无忧</h1>
   <p class="hero-desc">
     有文字层的 PDF 会按你设置的姓名、单位自动找出位置；扫描件和图片自己拖框。
     出件后还会把打码件再读一遍，替你查有没有漏打。
