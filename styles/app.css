@@ -280,7 +280,7 @@ button { font: inherit; color: inherit; }
   border-radius: 12px; border: 1px solid var(--line); background: #fff;
 }
 .modal-tip .tip { margin-top: 0; }
-.modal-tip .tip-qr img { height: 320px; }
+.modal-tip .tip-qr img { height: min(320px, 55vh); }
 
 /* ---------- 浮层 ---------- */
 .toast {
@@ -292,7 +292,10 @@ button { font: inherit; color: inherit; }
 .modal-box {
   width: min(460px, calc(100vw - 40px)); background: #fff; border-radius: 16px;
   padding: 24px 26px; box-shadow: 0 20px 60px rgba(0,0,0,.22);
+  max-height: calc(100vh - 40px); overflow: auto;   /* 内容再多也不能把按钮顶出屏幕 */
 }
+/* 赞赏弹层要放得下两张竖长的码并排，比普通弹窗宽 */
+.modal-box.modal-tip { width: min(620px, calc(100vw - 40px)); }
 .modal-title { font-size: 17px; font-weight: 700; }
 .modal-body { margin-top: 10px; color: #55665f; font-size: 14px; white-space: pre-line; }
 .modal-foot { margin-top: 22px; display: flex; justify-content: flex-end; gap: 10px; }
