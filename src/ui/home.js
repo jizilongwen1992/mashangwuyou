@@ -1,11 +1,11 @@
 /** 首页：设置要打码的信息 + 选文件 + 开始审阅。 */
 
-import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903155602'
-import * as store from '../store.js?v=20260903155602'
-import * as job from '../job.js?v=20260903155602'
-import * as pdfdoc from '../pdfdoc.js?v=20260903155602'
-import { loadBitmap } from '../redact.js?v=20260903155602'
-import { go } from '../main.js?v=20260903155602'
+import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903160348'
+import * as store from '../store.js?v=20260903160348'
+import * as job from '../job.js?v=20260903160348'
+import * as pdfdoc from '../pdfdoc.js?v=20260903160348'
+import { loadBitmap } from '../redact.js?v=20260903160348'
+import { go } from '../main.js?v=20260903160348'
 
 const MAX_MB = 50
 const ACCEPT = '.jpg,.jpeg,.png,.webp,.bmp,.pdf,image/*,application/pdf'
@@ -40,8 +40,8 @@ function shell() {
 
   <div id="picked" class="filelist"></div>
 
-  <div class="notice plain" style="margin-top:26px">
-    <div class="notice-title">别忘了通知要求交 2 份</div>
+  <div class="notice bright" style="margin-top:26px">
+    <div class="notice-title">温馨提示：别忘了要求交 2 份材料！</div>
     1 份原始扫描件，1 份打码件。本工具只另存打码件，原件一个字节都不动。
   </div>`
 }

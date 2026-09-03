@@ -1,12 +1,12 @@
 /** 出件页：逐个生成打码件，做一次漏打自检，然后交给你下载。 */
 
-import { $, esc, fmtSize, toast, download, outName, alertBox } from './kit.js?v=20260903155602'
-import * as job from '../job.js?v=20260903155602'
-import * as store from '../store.js?v=20260903155602'
-import { exportImage, loadBitmap } from '../redact.js?v=20260903155602'
-import { buildPdf, scanLeaks } from '../pdfout.js?v=20260903155602'
-import { go } from '../main.js?v=20260903155602'
-import { tipHtml, mountTip } from '../tip.js?v=20260903155602'
+import { $, esc, fmtSize, toast, download, outName, alertBox } from './kit.js?v=20260903160348'
+import * as job from '../job.js?v=20260903160348'
+import * as store from '../store.js?v=20260903160348'
+import { exportImage, loadBitmap } from '../redact.js?v=20260903160348'
+import { buildPdf, scanLeaks } from '../pdfout.js?v=20260903160348'
+import { go } from '../main.js?v=20260903160348'
+import { tipHtml, mountTip } from '../tip.js?v=20260903160348'
 
 let items = []
 let running = false
@@ -50,8 +50,8 @@ function shell() {
   <div class="progress"><i id="rs-bar" style="width:0%"></i></div>
   <div id="rs-list" class="filelist"></div>
   <div id="rs-leaks"></div>
-  <div class="notice plain">
-    <div class="notice-title">别忘了通知要求交 2 份</div>
+  <div class="notice bright">
+    <div class="notice-title">温馨提示：别忘了要求交 2 份材料！</div>
     1 份原始扫描件，1 份就是这里生成的打码件。原件没有被改动。
   </div>
   <div id="rs-tip"></div>

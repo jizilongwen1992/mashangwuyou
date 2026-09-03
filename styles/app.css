@@ -163,6 +163,13 @@ button { font: inherit; color: inherit; }
 .notice.plain { background: #f1f5f3; border-color: #e3eae7; color: #5c6e66; }
 .notice.bad { background: #fdf1f0; border-color: #f2d7d4; color: #8c2f26; }
 .notice.bad .notice-title { color: #7a241c; }
+/* 明亮鲜艳的一档：交 2 份这条最容易被忘，得跳出来 */
+.notice.bright {
+  background: linear-gradient(135deg, #fff3a0, #ffd54f);
+  border: 1.5px solid #f9a825; color: #5d3a00; font-size: 14px;
+  box-shadow: 0 4px 14px rgba(249, 168, 37, .25);
+}
+.notice.bright .notice-title { color: #d84315; font-size: 15.5px; }
 .notice.good { background: var(--green-soft); border-color: #cfe6dc; color: #1d5947; }
 .notice.good .notice-title { color: var(--green-dark); }
 

@@ -11,8 +11,8 @@
  * 照片、公章、签名这三类无论哪种材料都得手动框，机器认不出来。
  */
 
-import { needles } from './store.js?v=20260903155602'
-import { makeRect } from './textpick.js?v=20260903155602'
+import { needles } from './store.js?v=20260903160348'
+import { makeRect } from './textpick.js?v=20260903160348'
 
 export const LABELS = { name: '姓名', org: '单位', idNo: '身份证号', photo: '照片', seal: '公章', sign: '签名' }
 
