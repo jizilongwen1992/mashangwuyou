@@ -7,11 +7,11 @@
  *   #/privacy     隐私说明
  */
 
-import { $, $$ } from './ui/kit.js?v=20260903160633'
-import * as home from './ui/home.js?v=20260903160633'
-import * as review from './ui/review.js?v=20260903160633'
-import * as result from './ui/result.js?v=20260903160633'
-import * as doc from './ui/doc.js?v=20260903160633'
+import { $, $$ } from './ui/kit.js?v=20260903162059'
+import * as home from './ui/home.js?v=20260903162059'
+import * as review from './ui/review.js?v=20260903162059'
+import * as result from './ui/result.js?v=20260903162059'
+import * as doc from './ui/doc.js?v=20260903162059'
 
 const VIEWS = {
   home: home.render,
@@ -38,7 +38,13 @@ async function mount() {
   if (leaving) { try { leaving() } catch (e) { /* 上一页的清理失败不该拦住下一页 */ } leaving = null }
   const { name, args } = parse()
   const render = VIEWS[name] || VIEWS.home
-  const root = $('#view')
+  // 换一个全新的容器节点，而不是只清 innerHTML：
+  // 上一页 addEventListener 挂在容器上的监听会跟着旧节点一起被扔掉。
+  // 曾经栽过：首页和审阅页都有个 data-act="clear" 的按钮，首页的监听没摘，
+  // 审阅页点「清空本页」弹出来的却是「清除这台电脑上的信息？」，确认一下姓名单位就没了。
+  const old = $('#view')
+  const root = old.cloneNode(false)
+  old.replaceWith(root)
   root.className = 'view' + (name === 'review' ? ' wide' : '')
   root.innerHTML = ''
   document.querySelector('.foot').hidden = name === 'review'
@@ -52,7 +58,7 @@ mount()
 
 // 页脚的「赞赏」：先探一下有没有收款码图片，有才把链接放出来
 ;(async () => {
-  const { available, tipHtml, mountTip } = await import('./tip.js?v=20260903160633')
+  const { available, tipHtml, mountTip } = await import('./tip.js?v=20260903162059')
   const link = $('#tip-link')
   if (!link || !(await available()).length) return
   link.hidden = false

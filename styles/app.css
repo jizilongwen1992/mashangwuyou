@@ -275,6 +275,8 @@ button { font: inherit; color: inherit; }
 .tool-btn.on { background: var(--green); border-color: var(--green); color: #fff; }
 .tool-btn[disabled] { color: #b0bcb7; cursor: not-allowed; border-color: var(--line); background: #fff; }
 .tool-btn[disabled]:hover { border-color: var(--line); color: #b0bcb7; }
+/* off：看着是灰的，但点得动——点了会告诉你为什么现在没东西可做 */
+.tool-btn.off { color: #9aa8a2; }
 .tool-key { margin-left: auto; font-size: 11px; color: var(--sub); font-weight: 400; }
 .tool-btn.on .tool-key { color: rgba(255,255,255,.7); }
 .tool-note { font-size: 12px; color: var(--sub); line-height: 1.5; margin: -2px 0 12px; }

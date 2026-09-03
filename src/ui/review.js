@@ -6,14 +6,14 @@
  *   屏幕坐标 —— 单位坐标 × dispScale。鼠标事件先减去舞台位置再除以 dispScale 就回到单位坐标。
  */
 
-import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903160633'
-import * as job from '../job.js?v=20260903160633'
-import * as store from '../store.js?v=20260903160633'
-import * as pdfdoc from '../pdfdoc.js?v=20260903160633'
-import * as textpick from '../textpick.js?v=20260903160633'
-import { detectLines } from '../detect.js?v=20260903160633'
-import { loadBitmap } from '../redact.js?v=20260903160633'
-import { go } from '../main.js?v=20260903160633'
+import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903162059'
+import * as job from '../job.js?v=20260903162059'
+import * as store from '../store.js?v=20260903162059'
+import * as pdfdoc from '../pdfdoc.js?v=20260903162059'
+import * as textpick from '../textpick.js?v=20260903162059'
+import { detectLines } from '../detect.js?v=20260903162059'
+import { loadBitmap } from '../redact.js?v=20260903162059'
+import { go } from '../main.js?v=20260903162059'
 
 const HANDLE = 12          // 右下角把手的命中半径（屏幕像素）
 const TAP_SLOP = 4         // 移动不到这么多像素就算点一下
@@ -149,8 +149,7 @@ function toolsHtml() {
       <div class="rail-title">本页</div>
       <button class="tool-btn" data-act="accept-all" ${pending ? '' : 'disabled'}>全部采纳${pending ? '（' + pending + '）' : ''}</button>
       <button class="tool-btn" data-act="undo" ${history.length ? '' : 'disabled'}>撤销<span class="tool-key">Ctrl Z</span></button>
-      <button class="tool-btn" data-act="del" ${sel ? '' : 'disabled'}>删除选中的框<span class="tool-key">Del</span></button>
-      <button class="tool-btn" data-act="clear" ${rects.length ? '' : 'disabled'}>清空本页</button>
+      <button class="tool-btn ${sel ? '' : 'off'}" data-act="del">删除选中的框<span class="tool-key">Del</span></button>
       <button class="tool-btn" data-act="redetect" ${hasText ? '' : 'disabled'}>重新自动识别</button>
     </div>
 
@@ -579,12 +578,7 @@ async function onClick(e) {
   else if (act === 'fill') { store.writeFill(btn.dataset.hex); paintTools(); paintBoxes(); toast('导出用' + store.fillInfo(btn.dataset.hex).name + '色实色块盖住') }
   else if (act === 'accept-all') setRects(getRects().map(r => Object.assign({}, r, { accepted: true })), true)
   else if (act === 'undo') undo()
-  else if (act === 'del') delSelected()
-  else if (act === 'clear') {
-    if (!getRects().length) return
-    const yes = await confirmBox({ title: '清空本页的框？', body: '本页 ' + getRects().length + ' 个框都会去掉，可以按 Ctrl+Z 撤销。', ok: '清空', danger: true })
-    if (yes) setRects([], true)
-  }
+  else if (act === 'del') { if (!sel) { toast('先点一下某个框把它选中，再删'); return } delSelected() }
   else if (act === 'redetect') await redetect()
   else if (act === 'page') await gotoPage(Number(btn.dataset.i))
   else if (act === 'file') switchFile(btn.dataset.id)

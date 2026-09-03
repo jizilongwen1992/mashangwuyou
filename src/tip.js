@@ -7,7 +7,7 @@
  * 图片不存在时整块自动隐藏——所以没准备好图片也可以先上线，不会露出空框。
  */
 
-import { esc } from './ui/kit.js?v=20260903160633'
+import { esc } from './ui/kit.js?v=20260903162059'
 
 export const TIP = {
   enabled: true,

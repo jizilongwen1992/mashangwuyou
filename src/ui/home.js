@@ -1,11 +1,11 @@
 /** 首页：设置要打码的信息 + 选文件 + 开始审阅。 */
 
-import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903160633'
-import * as store from '../store.js?v=20260903160633'
-import * as job from '../job.js?v=20260903160633'
-import * as pdfdoc from '../pdfdoc.js?v=20260903160633'
-import { loadBitmap } from '../redact.js?v=20260903160633'
-import { go } from '../main.js?v=20260903160633'
+import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903162059'
+import * as store from '../store.js?v=20260903162059'
+import * as job from '../job.js?v=20260903162059'
+import * as pdfdoc from '../pdfdoc.js?v=20260903162059'
+import { loadBitmap } from '../redact.js?v=20260903162059'
+import { go } from '../main.js?v=20260903162059'
 
 const MAX_MB = 50
 const ACCEPT = '.jpg,.jpeg,.png,.webp,.bmp,.pdf,image/*,application/pdf'
@@ -97,7 +97,7 @@ function paintProfile() {
     <div class="btnbar">
       <button class="btn" data-act="save">保存</button>
       <button class="btn quietbtn" data-act="cancel">取消</button>
-      <button class="btn link" data-act="clear" style="margin-left:auto">清除这台电脑上的信息</button>
+      <button class="btn link" data-act="clear-profile" style="margin-left:auto">清除这台电脑上的信息</button>
     </div>`
   setTimeout(() => { const el = $('#p-name'); if (el) el.focus() }, 0)
 }
@@ -244,14 +244,14 @@ function bind(root) {
   window.addEventListener('dragover', swallow)
   window.addEventListener('drop', swallow)
 
-  root.addEventListener('click', async e => {
+  const onClick = async e => {
     const btn = e.target.closest('[data-act]')
     if (!btn) return
     const act = btn.dataset.act
     if (act === 'edit') { editing = true; paintProfile() }
     else if (act === 'cancel') { editing = false; paintProfile() }
     else if (act === 'save') saveProfile()
-    else if (act === 'clear') {
+    else if (act === 'clear-profile') {
       const yes = await confirmBox({
         title: '清除这台电脑上的信息？',
         body: '姓名、单位、简称、身份证号会从本浏览器删掉。已经选好的文件不受影响。',
@@ -262,13 +262,16 @@ function bind(root) {
     else if (act === 'drop-file') { picked.splice(Number(btn.dataset.i), 1); paintPicked() }
     else if (act === 'clear-files') { picked = []; paintPicked() }
     else if (act === 'start') start()
-  })
-
-  root.addEventListener('keydown', e => {
+  }
+  const onKey = e => {
     if (e.key === 'Enter' && editing && e.target.classList.contains('input')) saveProfile()
-  })
+  }
+  root.addEventListener('click', onClick)
+  root.addEventListener('keydown', onKey)
 
   return () => {
+    root.removeEventListener('click', onClick)
+    root.removeEventListener('keydown', onKey)
     window.removeEventListener('dragover', swallow)
     window.removeEventListener('drop', swallow)
   }
