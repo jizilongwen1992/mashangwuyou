@@ -1,11 +1,11 @@
 /** 首页：设置要打码的信息 + 选文件 + 开始审阅。 */
 
-import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903164012'
-import * as store from '../store.js?v=20260903164012'
-import * as job from '../job.js?v=20260903164012'
-import * as pdfdoc from '../pdfdoc.js?v=20260903164012'
-import { loadBitmap } from '../redact.js?v=20260903164012'
-import { go } from '../main.js?v=20260903164012'
+import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js?v=20260903170948'
+import * as store from '../store.js?v=20260903170948'
+import * as job from '../job.js?v=20260903170948'
+import * as pdfdoc from '../pdfdoc.js?v=20260903170948'
+import { loadBitmap } from '../redact.js?v=20260903170948'
+import { go } from '../main.js?v=20260903170948'
 
 const MAX_MB = 50
 const ACCEPT = '.jpg,.jpeg,.png,.webp,.bmp,.pdf,image/*,application/pdf'
@@ -60,21 +60,20 @@ function paintProfile() {
         <div class="row-main">
           <div class="card-title">
             <span class="${ready ? 'dot-ok' : 'dot-todo'}"></span>
-            ${ready ? '要打码的信息已设置' : '先设置要打码的信息'}
+            设置需要打码的信息
           </div>
           <div class="card-sub">${ready
-            ? '已设置 ' + store.categories(p).length + ' 类匹配项，自动识别按它们去查'
-            : '不设置也能用，但只能全部自己拖框'}</div>
+            ? '已设置 ' + store.categories(p).length + ' 类匹配项'
+            : '不设置，可手动框选'}</div>
         </div>
         <button class="btn ghost small" data-act="edit">${ready ? '修改' : '去设置'}</button>
       </div>
-      ${ready ? '<div class="chips">' + store.categories(p).map(c => '<span class="chip">' + esc(c) + '</span>').join('') + '</div>' : ''}
-      <div class="quiet">只存在这台电脑的浏览器里，不上传。识别时在本机的 PDF 文字层里比对。</div>`
+      ${ready ? '<div class="chips">' + store.categories(p).map(c => '<span class="chip">' + esc(c) + '</span>').join('') + '</div>' : ''}`
     return
   }
 
   box.innerHTML = `
-    <div class="card-title">要打码的信息</div>
+    <div class="card-title">设置需要打码的信息</div>
     <div class="card-sub">照评审通知，姓名、单位、身份证号要盖住。填得越全，自动找得越准。</div>
     <div class="grid2">
       <label class="field">
@@ -117,7 +116,7 @@ async function saveProfile() {
   store.writeProfile(p)
   editing = false
   paintProfile()
-  toast('已保存到本机')
+  toast('已保存')
 }
 
 /* ---------------- 选文件 ---------------- */
@@ -254,7 +253,7 @@ function bind(root) {
     else if (act === 'clear-profile') {
       const yes = await confirmBox({
         title: '清除这台电脑上的信息？',
-        body: '姓名、单位、简称、身份证号会从本浏览器删掉。已经选好的文件不受影响。',
+        body: '姓名、单位、简称、身份证号会被清除。已经选好的文件不受影响。',
         ok: '清除', danger: true
       })
       if (yes) { store.clearProfile(); paintProfile(); toast('已清除') }
