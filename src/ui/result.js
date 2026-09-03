@@ -1,12 +1,12 @@
 /** 出件页：逐个生成打码件，做一次漏打自检，然后交给你下载。 */
 
-import { $, esc, fmtSize, toast, download, outName, alertBox } from './kit.js'
-import * as job from '../job.js'
-import * as store from '../store.js'
-import { exportImage, loadBitmap } from '../redact.js'
-import { buildPdf, scanLeaks } from '../pdfout.js'
-import { go } from '../main.js'
-import { tipHtml, mountTip } from '../tip.js'
+import { $, esc, fmtSize, toast, download, outName, alertBox } from './kit.js?v=20260903154238'
+import * as job from '../job.js?v=20260903154238'
+import * as store from '../store.js?v=20260903154238'
+import { exportImage, loadBitmap } from '../redact.js?v=20260903154238'
+import { buildPdf, scanLeaks } from '../pdfout.js?v=20260903154238'
+import { go } from '../main.js?v=20260903154238'
+import { tipHtml, mountTip } from '../tip.js?v=20260903154238'
 
 let items = []
 let running = false

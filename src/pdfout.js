@@ -13,9 +13,9 @@
  * 区别只是这里全在浏览器里跑，文件不出本机。
  */
 
-import { renderPage, extractText } from './pdfdoc.js'
-import { paint, canvasToBlob } from './redact.js'
-import { findLeaks } from './detect.js'
+import { renderPage, extractText } from './pdfdoc.js?v=20260903154238'
+import { paint, canvasToBlob } from './redact.js?v=20260903154238'
+import { findLeaks } from './detect.js?v=20260903154238'
 
 export const OUTPUT_DPI = 200          // A4 约 1654 x 2339，看得清也印得出
 export const JPEG_QUALITY = 0.85
