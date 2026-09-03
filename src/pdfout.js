@@ -30,7 +30,7 @@ function lib() {
  * @param onProgress (已完成页, 总页) => void
  * @returns {Promise<Blob>}
  */
-export async function buildPdf(file, onProgress) {
+export async function buildPdf(file, onProgress, fill) {
   const { PDFDocument } = lib()
   const doc = file.pdf.doc
   const total = doc.numPages
@@ -55,7 +55,7 @@ export async function buildPdf(file, onProgress) {
       continue
     }
     await renderPage(doc, i, scale, canvas)
-    paint(canvas.getContext('2d'), rects, scale)
+    paint(canvas.getContext('2d'), rects, scale, fill)
     const blob = await canvasToBlob(canvas, 'image/jpeg', JPEG_QUALITY)
     const img = await out.embedJpg(new Uint8Array(await blob.arrayBuffer()))
     const wPt = canvas.width / scale

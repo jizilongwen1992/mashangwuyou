@@ -92,6 +92,11 @@ function shell() {
       </div>
     </div>
 
+    <div class="rv-note">
+      <b>屏幕上的框是半透明的，只为让你核对盖住了什么。</b>
+      导出的打码件是<b>不透明实色</b>，底下的内容完全看不见——请放心，这不是"打了还能看见"。
+    </div>
+
     <div class="rv-body">
       <aside class="rv-rail" id="rv-rail"></aside>
 
@@ -117,6 +122,7 @@ function shell() {
 }
 
 function toolsHtml() {
+  const fill = store.readFill()
   const hasText = f.pages[pi] && f.pages[pi].hasText
   const rects = getRects()
   const pending = rects.filter(r => !r.accepted).length
@@ -146,6 +152,15 @@ function toolsHtml() {
       <button class="tool-btn" data-act="del" ${sel ? '' : 'disabled'}>删除选中的框<span class="tool-key">Del</span></button>
       <button class="tool-btn" data-act="clear" ${rects.length ? '' : 'disabled'}>清空本页</button>
       <button class="tool-btn" data-act="redetect" ${hasText ? '' : 'disabled'}>重新自动识别</button>
+    </div>
+
+    <div class="tool-group">
+      <div class="rail-title">遮盖颜色</div>
+      <div class="swatches">
+        ${store.FILLS.map(c => `<button class="swatch ${c.hex === fill ? 'on' : ''}" data-act="fill" data-hex="${c.hex}"
+          title="${c.name}" style="--sw:${c.hex};--sw-line:${c.line}"><span>${c.name}</span></button>`).join('')}
+      </div>
+      <div class="tool-note">当前：${esc(store.fillInfo(fill).name)}色。只影响导出的打码件，屏幕上始终半透明。</div>
     </div>
 
     <div class="tool-group">
@@ -334,7 +349,18 @@ function paintBoxes() {
     ? `<div class="draft" style="left:${draft.x}px;top:${draft.y}px;width:${draft.w}px;height:${draft.h}px"></div>`
     : ''
   overlay.innerHTML = html + pickHtml + draftHtml
-  $('#rv-stage').className = 'rv-stage mode-' + mode
+  const stage = $('#rv-stage')
+  stage.className = 'rv-stage mode-' + mode
+  applyFill(stage)
+}
+
+/** 把当前遮盖色写成 CSS 变量：屏幕上用同一个色、但半透明，出件才是实色 */
+function applyFill(stage) {
+  const info = store.fillInfo(store.readFill())
+  const hex = info.hex.replace('#', '')
+  const r = parseInt(hex.slice(0, 2), 16), g = parseInt(hex.slice(2, 4), 16), b = parseInt(hex.slice(4, 6), 16)
+  stage.style.setProperty('--fill-rgb', r + ',' + g + ',' + b)
+  stage.style.setProperty('--fill-line', info.line)
 }
 
 function paintCounts() {
@@ -550,6 +576,7 @@ async function onClick(e) {
   if (act === 'mode-box') { mode = mode === 'box' ? 'edit' : 'box'; paintTools(); paintBoxes(); hint() }
   else if (act === 'mode-text') { mode = mode === 'text' ? 'edit' : 'text'; paintTools(); paintBoxes(); hint() }
   else if (act === 'mode-edit') { mode = 'edit'; draft = null; picks = []; paintTools(); paintBoxes(); hint() }
+  else if (act === 'fill') { store.writeFill(btn.dataset.hex); paintTools(); paintBoxes(); toast('导出用' + store.fillInfo(btn.dataset.hex).name + '色实色块盖住') }
   else if (act === 'accept-all') setRects(getRects().map(r => Object.assign({}, r, { accepted: true })), true)
   else if (act === 'undo') undo()
   else if (act === 'del') delSelected()

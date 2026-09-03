@@ -50,6 +50,39 @@ export function categories(profile) {
   return list
 }
 
+/* ---------- 遮盖颜色 ---------- */
+
+/**
+ * 可选的遮盖色。默认黑：最不像"还没打完"，打印出来也最干脆。
+ * line 是屏幕上框的边线色——白色块在白纸上没有边线就看不见了。
+ */
+export const FILLS = [
+  { name: '黑', hex: '#000000', line: '#000000' },
+  { name: '红', hex: '#e53935', line: '#b71c1c' },
+  { name: '橙', hex: '#fb8c00', line: '#e65100' },
+  { name: '黄', hex: '#ffd400', line: '#c8a600' },
+  { name: '绿', hex: '#43a047', line: '#1b5e20' },
+  { name: '青', hex: '#00acc1', line: '#006064' },
+  { name: '蓝', hex: '#1e88e5', line: '#0d47a1' },
+  { name: '紫', hex: '#8e24aa', line: '#4a148c' },
+  { name: '白', hex: '#ffffff', line: '#8a9690' }
+]
+export const DEFAULT_FILL = FILLS[0].hex
+const FILL_KEY = 'msmy.fill'
+
+export function readFill() {
+  const v = localStorage.getItem(FILL_KEY)
+  return FILLS.some(f => f.hex === v) ? v : DEFAULT_FILL
+}
+
+export function writeFill(hex) {
+  if (FILLS.some(f => f.hex === hex)) localStorage.setItem(FILL_KEY, hex)
+}
+
+export function fillInfo(hex) {
+  return FILLS.find(f => f.hex === hex) || FILLS[0]
+}
+
 /**
  * 识别用的关键词表。长的排前面：
  * 「安徽省××水利勘测设计院」要先匹配掉，否则简称「××设计院」会先切一刀，

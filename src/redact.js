@@ -6,7 +6,7 @@
  * 涂色时按 scale 换算到画布像素，所以出件分辨率想调多高都不会偏。
  */
 
-export const FILL = '#FFD400'      // 与小程序版 utils/redact.js 一致
+export const DEFAULT_FILL = '#000000'   // 出件默认黑色实色块；界面上可选别的颜色
 const MIN_BLOCK = 4
 
 export function normalize(r) {
@@ -25,8 +25,8 @@ export function clamp(r, w, h) {
   return { x, y, w: Math.min(n.w, w - x), h: Math.min(n.h, h - y) }
 }
 
-function paintSolid(ctx, r) {
-  ctx.fillStyle = FILL
+function paintSolid(ctx, r, fill) {
+  ctx.fillStyle = fill || DEFAULT_FILL
   ctx.fillRect(r.x, r.y, r.w, r.h)
 }
 
@@ -36,7 +36,7 @@ function paintMosaic(ctx, r, longEdge) {
   try {
     data = ctx.getImageData(r.x, r.y, Math.max(1, r.w), Math.max(1, r.h))
   } catch (e) {
-    paintSolid(ctx, r)      // 跨源画布取不到像素，退回色块
+    paintSolid(ctx, r, DEFAULT_FILL)      // 跨源画布取不到像素，退回色块
     return
   }
   const { width, height, data: px } = data
@@ -58,12 +58,14 @@ function paintMosaic(ctx, r, longEdge) {
 }
 
 /**
- * 在画布上涂掉已采纳的框。
+ * 在画布上涂掉已采纳的框。**这里涂的是不透明实色**——
+ * 屏幕上审阅时看到的半透明框只是让你核对盖住了什么，出件走的是这个函数，底下什么都不剩。
  * @param ctx 画布上下文
  * @param rects 单位空间的矩形
  * @param scale 单位 -> 画布像素的倍数
+ * @param fill 实色块的颜色，如 '#000000'
  */
-export function paint(ctx, rects, scale) {
+export function paint(ctx, rects, scale, fill) {
   const k = scale || 1
   const cw = ctx.canvas.width
   const ch = ctx.canvas.height
@@ -75,7 +77,7 @@ export function paint(ctx, rects, scale) {
     r.w = Math.round(r.w); r.h = Math.round(r.h)
     if (r.w < 2 || r.h < 2) return
     if (raw.style === 'mosaic') paintMosaic(ctx, r, longEdge)
-    else paintSolid(ctx, r)
+    else paintSolid(ctx, r, fill)
   })
 }
 
@@ -108,7 +110,7 @@ export function canvasToBlob(canvas, type, quality) {
  * 图片出件：按原图分辨率重画一遍再涂色，原件一个字节都不动。
  * @returns {Promise<Blob>}
  */
-export async function exportImage({ bitmap, width, height, rects, type = 'image/jpeg', quality = 0.92 }) {
+export async function exportImage({ bitmap, width, height, rects, fill, type = 'image/jpeg', quality = 0.92 }) {
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
@@ -116,6 +118,6 @@ export async function exportImage({ bitmap, width, height, rects, type = 'image/
   ctx.fillStyle = '#fff'
   ctx.fillRect(0, 0, width, height)
   ctx.drawImage(bitmap, 0, 0, width, height)
-  paint(ctx, rects, 1)
+  paint(ctx, rects, 1, fill)
   return await canvasToBlob(canvas, type, quality)
 }

@@ -15,7 +15,8 @@
   --warn-line: #f1d8ab;
   --ok: #27a56f;
   --err: #b3261e;
-  --cover: #ffd400;
+  --fill-rgb: 0,0,0;        /* 当前遮盖色，审阅页按所选颜色覆盖 */
+  --fill-line: #000;
   color-scheme: light;
 }
 
@@ -173,6 +174,22 @@ button { font: inherit; color: inherit; }
 .doc .source, .doc .tail { color: var(--sub); font-size: 13px; }
 
 /* ---------- 审阅页 ---------- */
+/* 半透明 vs 实色的说明，必须显眼：不说清楚，人会以为打了还能看见 */
+.rv-note {
+  padding: 9px 22px; background: var(--warn-soft); border-bottom: 1px solid var(--warn-line);
+  color: #70420a; font-size: 13.5px; line-height: 1.5;
+}
+.rv-note b { color: #5a3400; }
+
+.swatches { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; }
+.swatch {
+  width: 40px; height: 30px; border-radius: 8px; cursor: pointer; padding: 0;
+  background: var(--sw); border: 2px solid var(--sw-line);
+  display: grid; place-items: center; font-size: 11px; font-weight: 700;
+  color: #fff; text-shadow: 0 0 3px rgba(0,0,0,.6);
+}
+.swatch[style*="ffffff"] span, .swatch[style*="ffd400"] span { color: #333; text-shadow: none; }
+.swatch.on { outline: 3px solid var(--green); outline-offset: 1px; }
 .review { display: flex; flex-direction: column; height: calc(100vh - 57px); }
 .rv-head {
   display: flex; align-items: center; gap: 16px;
@@ -198,7 +215,7 @@ button { font: inherit; color: inherit; }
 .rail-page.on { background: #fff; border-color: var(--green); color: var(--green); font-weight: 700; }
 .rail-badge {
   margin-left: auto; min-width: 20px; padding: 1px 6px; border-radius: 999px;
-  background: var(--cover); color: #4a3c00; font-size: 11px; font-weight: 700; text-align: center;
+  background: var(--green); color: #fff; font-size: 11px; font-weight: 700; text-align: center;
 }
 .rail-file {
   display: block; width: 100%; margin-bottom: 4px;
@@ -225,8 +242,8 @@ button { font: inherit; color: inherit; }
 .rv-overlay { position: absolute; inset: 0; }
 
 .bx { position: absolute; box-sizing: border-box; }
-.bx-on { background: rgba(255, 212, 0, .95); border: 1px solid #c8a600; cursor: move; }
-.bx-off { background: rgba(255, 212, 0, .2); border: 1px dashed #b58c00; cursor: pointer; }
+.bx-on { background: rgba(var(--fill-rgb), .45); border: 1px solid var(--fill-line); cursor: move; }
+.bx-off { background: rgba(var(--fill-rgb), .12); border: 1px dashed var(--fill-line); cursor: pointer; }
 .bx-sel { outline: 2px solid var(--green); outline-offset: 1px; }
 .bx-label {
   position: absolute; top: -17px; left: -1px; padding: 0 5px; border-radius: 4px;
@@ -234,7 +251,7 @@ button { font: inherit; color: inherit; }
 }
 .bx-handle {
   position: absolute; right: -5px; bottom: -5px; width: 11px; height: 11px;
-  border-radius: 50%; background: #fff; border: 2px solid #c8a600; cursor: nwse-resize;
+  border-radius: 50%; background: #fff; border: 2px solid var(--fill-line); cursor: nwse-resize;
 }
 .pick { position: absolute; background: rgba(23, 111, 87, .32); border-radius: 1px; pointer-events: none; }
 .draft { position: absolute; box-sizing: border-box; background: rgba(23, 111, 87, .16); border: 1px dashed var(--green); pointer-events: none; }

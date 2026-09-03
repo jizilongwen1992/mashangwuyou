@@ -99,7 +99,7 @@ async function runOne(item) {
       return
     }
     if (item.isPdf) {
-      const blob = await buildPdf(f, (n, all) => patch(item, { note: '出件中 ' + n + '/' + all + ' 页…' }))
+      const blob = await buildPdf(f, (n, all) => patch(item, { note: '出件中 ' + n + '/' + all + ' 页…' }), store.readFill())
       patch(item, { note: '正在自检…' })
       const check = await scanLeaks(blob, store.readProfile())
       f.output = blob
@@ -117,7 +117,8 @@ async function runOne(item) {
         bitmap: bmp,
         width: f.pages[0].w,
         height: f.pages[0].h,
-        rects: (f.pageRects[0] || []).filter(r => r.accepted)
+        rects: (f.pageRects[0] || []).filter(r => r.accepted),
+        fill: store.readFill()
       })
       f.output = blob
       f.status = 'done'

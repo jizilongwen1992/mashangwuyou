@@ -1,4 +1,4 @@
-/** 工作台：设置要打码的信息 + 选文件 + 开始审阅。 */
+/** 首页：设置要打码的信息 + 选文件 + 开始审阅。 */
 
 import { $, esc, fmtSize, toast, confirmBox, alertBox } from './kit.js'
 import * as store from '../store.js'
