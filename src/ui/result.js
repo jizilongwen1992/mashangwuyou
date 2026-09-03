@@ -1,12 +1,12 @@
 /** 出件页：逐个生成打码件，做一次漏打自检，然后交给你下载。 */
 
-import { $, esc, fmtSize, toast, download, outName, alertBox } from './kit.js?v=20260903160348'
-import * as job from '../job.js?v=20260903160348'
-import * as store from '../store.js?v=20260903160348'
-import { exportImage, loadBitmap } from '../redact.js?v=20260903160348'
-import { buildPdf, scanLeaks } from '../pdfout.js?v=20260903160348'
-import { go } from '../main.js?v=20260903160348'
-import { tipHtml, mountTip } from '../tip.js?v=20260903160348'
+import { $, esc, fmtSize, toast, download, outName, alertBox } from './kit.js?v=20260903160633'
+import * as job from '../job.js?v=20260903160633'
+import * as store from '../store.js?v=20260903160633'
+import { exportImage, loadBitmap } from '../redact.js?v=20260903160633'
+import { buildPdf, scanLeaks } from '../pdfout.js?v=20260903160633'
+import { go } from '../main.js?v=20260903160633'
+import { tipHtml, mountTip } from '../tip.js?v=20260903160633'
 
 let items = []
 let running = false
@@ -52,7 +52,7 @@ function shell() {
   <div id="rs-leaks"></div>
   <div class="notice bright">
     <div class="notice-title">温馨提示：别忘了要求交 2 份材料！</div>
-    1 份原始扫描件，1 份就是这里生成的打码件。原件没有被改动。
+    职称评审需提交 1 份原始扫描件，1 份打码件。
   </div>
   <div id="rs-tip"></div>
   <div class="btnbar">
