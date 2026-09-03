@@ -281,6 +281,18 @@ button { font: inherit; color: inherit; }
 .progress { height: 6px; border-radius: 999px; background: #e6ece9; overflow: hidden; margin-top: 14px; }
 .progress > i { display: block; height: 100%; background: var(--green); transition: width .2s; }
 
+/* ---------- 赞赏 ---------- */
+/* 只放码，不配文字。收款码原图是竖长的整张海报，按高度限，宽度自适应 */
+.tip { margin-top: 22px; display: flex; justify-content: center; }
+.tip-qrs { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+.tip-qr { margin: 0; }
+.tip-qr img {
+  height: 240px; width: auto; max-width: 100%; display: block;
+  border-radius: 12px; border: 1px solid var(--line); background: #fff;
+}
+.modal-tip .tip { margin-top: 0; }
+.modal-tip .tip-qr img { height: 320px; }
+
 /* ---------- 浮层 ---------- */
 .toast {
   position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%);

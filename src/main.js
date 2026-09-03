@@ -49,3 +49,20 @@ async function mount() {
 
 window.addEventListener('hashchange', mount)
 mount()
+
+// 页脚的「赞赏」：先探一下有没有收款码图片，有才把链接放出来
+;(async () => {
+  const { available, tipHtml, mountTip } = await import('./tip.js')
+  const link = $('#tip-link')
+  if (!link || !(await available()).length) return
+  link.hidden = false
+  link.addEventListener('click', async e => {
+    e.preventDefault()
+    const el = $('#modal')
+    el.innerHTML = '<div class="modal-box modal-tip">' + (await tipHtml(false)) +
+      '<div class="modal-foot"><button class="btn quietbtn" data-act="ok">关闭</button></div></div>'
+    el.hidden = false
+    mountTip(el)
+    el.onclick = ev => { if (ev.target.dataset.act === 'ok' || ev.target === el) { el.hidden = true; el.innerHTML = '' } }
+  })
+})()

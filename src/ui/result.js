@@ -6,6 +6,7 @@ import * as store from '../store.js'
 import { exportImage, loadBitmap } from '../redact.js'
 import { buildPdf, scanLeaks } from '../pdfout.js'
 import { go } from '../main.js'
+import { tipHtml, mountTip } from '../tip.js'
 
 let items = []
 let running = false
@@ -53,6 +54,7 @@ function shell() {
     <div class="notice-title">别忘了通知要求交 2 份</div>
     1 份原始扫描件，1 份就是这里生成的打码件。原件没有被改动。
   </div>
+  <div id="rs-tip"></div>
   <div class="btnbar">
     <button class="btn" data-act="zip" disabled>打包下载全部</button>
     <button class="btn ghost" data-act="again">再打一批</button>
@@ -77,6 +79,12 @@ async function runAll() {
     : '这一批没有需要打码的内容，直接用原件即可。'
   paint()
   paintLeaks()
+  // 有件出来才谢，什么都没生成就别伸手
+  if (done) {
+    const html = await tipHtml(false)
+    const box = $('#rs-tip')
+    if (html && box && mounted) { box.innerHTML = html; mountTip(box) }
+  }
 }
 
 async function runOne(item) {
