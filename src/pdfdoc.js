@@ -13,7 +13,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('../vendor/pdf.worker.min.mjs',
 const CMAP_URL = new URL('../vendor/cmaps/', import.meta.url).href
 const FONT_URL = new URL('../vendor/standard_fonts/', import.meta.url).href
 
-export const MAX_PAGES = 80
+export const MAX_PAGES = 100
 export const MIN_TEXT_CHARS = 20      // 少于这么多字就当没有文字层，只能拖框
 
 /** 中日韩与全角字符：切分字符宽度时算整格，其余算半格 */
