@@ -288,16 +288,16 @@ button { font: inherit; color: inherit; }
 .progress > i { display: block; height: 100%; background: var(--green); transition: width .2s; }
 
 /* ---------- 赞赏 ---------- */
-/* 只放码，不配文字。收款码原图是竖长的整张海报，按高度限，宽度自适应 */
+/* 只放码，不配文字。两张都是 720×720 的正方形，显示尺寸一致 */
 .tip { margin-top: 22px; display: flex; justify-content: center; }
 .tip-qrs { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
 .tip-qr { margin: 0; }
 .tip-qr img {
-  height: 240px; width: auto; max-width: 100%; display: block;
+  width: 220px; height: 220px; max-width: 100%; display: block;
   border-radius: 12px; border: 1px solid var(--line); background: #fff;
 }
 .modal-tip .tip { margin-top: 0; }
-.modal-tip .tip-qr img { height: min(320px, 55vh); }
+.modal-tip .tip-qr img { width: min(260px, 40vh); height: min(260px, 40vh); }
 
 /* ---------- 浮层 ---------- */
 .toast {
