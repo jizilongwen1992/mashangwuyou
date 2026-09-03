@@ -7,11 +7,11 @@
  *   #/privacy     隐私说明
  */
 
-import { $, $$ } from './ui/kit.js?v=20260903172307'
-import * as home from './ui/home.js?v=20260903172307'
-import * as review from './ui/review.js?v=20260903172307'
-import * as result from './ui/result.js?v=20260903172307'
-import * as doc from './ui/doc.js?v=20260903172307'
+import { $, $$ } from './ui/kit.js?v=20260903172922'
+import * as home from './ui/home.js?v=20260903172922'
+import * as review from './ui/review.js?v=20260903172922'
+import * as result from './ui/result.js?v=20260903172922'
+import * as doc from './ui/doc.js?v=20260903172922'
 
 const VIEWS = {
   home: home.render,
@@ -58,7 +58,7 @@ mount()
 
 // 页脚的「赞赏」：先探一下有没有收款码图片，有才把链接放出来
 ;(async () => {
-  const { available, tipHtml, mountTip } = await import('./tip.js?v=20260903172307')
+  const { available, tipHtml, mountTip } = await import('./tip.js?v=20260903172922')
   const link = $('#tip-link')
   if (!link || !(await available()).length) return
   link.hidden = false
