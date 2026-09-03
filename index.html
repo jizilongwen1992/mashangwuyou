@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>码上无忧 · 网页版</title>
+<meta name="description" content="职称评审材料打码工具。图片与 PDF 全在本机浏览器处理，不上传。">
+<!-- 图标直接内联，不额外发一次请求，也省得 /favicon.ico 在日志里刷 404 -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2064%2064%22%3E%3Crect%20width=%2264%22%20height=%2264%22%20rx=%2216%22%20fill=%22#176f57%22/%3E%3Ctext%20x=%2232%22%20y=%2245%22%20font-size=%2238%22%20font-family=%22PingFang%20SC,Microsoft%20YaHei,sans-serif%22%20font-weight=%22700%22%20fill=%22#fff%22%20text-anchor=%22middle%22%3E%E7%A0%81%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles/app.css">
+<!-- 第三方库全部随工程一起放在 vendor/，不连任何 CDN。断网也能用。 -->
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="vendor/jszip.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#/" data-route="home">
+    <span class="logo">码</span>
+    <span class="brand-name">码上无忧</span>
+    <span class="brand-tag">网页版</span>
+  </a>
+  <nav class="nav">
+    <a href="#/" data-route="home">工作台</a>
+    <a href="#/guide" data-route="guide">打码要求</a>
+    <a href="#/privacy" data-route="privacy">隐私说明</a>
+  </nav>
+  <div class="local-badge" title="本页所有处理都在你的浏览器里完成">
+    <span class="local-dot"></span>本机处理 · 不上传
+  </div>
+</header>
+
+<main id="view" class="view"></main>
+
+<footer class="foot">
+  <span>打码要求以当年评审通知为准。本工具只做遮盖，不代替通知原文。</span>
+  <span class="foot-sep">·</span>
+  <a href="#/guide" data-route="guide">打码要求</a>
+  <a href="#/privacy" data-route="privacy">隐私说明</a>
+</footer>
+
+<div id="toast" class="toast" hidden></div>
+<div id="modal" class="modal" hidden></div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
