@@ -24,10 +24,10 @@ export function render(root) {
 
 function shell() {
   return `
-  <h1 class="hero-title">材料打码，全在你自己的电脑上完成</h1>
+  <h1 class="hero-title">一键打码 · 码上无忧</h1>
   <p class="hero-desc">
     有文字层的 PDF 会按你设置的姓名、单位自动找出位置；扫描件和图片自己拖框。
-    出件后还会把打码件再读一遍，替你查有没有漏打。文件不上传，断网也能用。
+    出件后还会把打码件再读一遍，替你查有没有漏打。
   </p>
 
   <div id="profile-card" class="card" style="margin-top:22px"></div>

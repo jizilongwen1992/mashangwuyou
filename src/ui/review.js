@@ -88,7 +88,7 @@ function shell() {
           <button data-act="zoom-in" title="放大">＋</button>
           <button data-act="zoom-fit" title="适应宽度">适应</button>
         </div>
-        <button class="btn ghost small" data-act="quit">回工作台</button>
+        <button class="btn ghost small" data-act="quit">回首页</button>
       </div>
     </div>
 
@@ -670,7 +670,7 @@ function mark(skipped) {
 
 async function quit() {
   const yes = await confirmBox({
-    title: '回工作台？',
+    title: '回首页？',
     body: '这一批的文件和框都会丢掉，要重新选。',
     ok: '回去', danger: true
   })
