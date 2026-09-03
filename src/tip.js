@@ -7,11 +7,12 @@
  * 图片不存在时整块自动隐藏——所以没准备好图片也可以先上线，不会露出空框。
  */
 
-import { esc } from './ui/kit.js?v=20260903162636'
+import { esc } from './ui/kit.js?v=20260903163019'
 
 export const TIP = {
   enabled: true,
-  // 只放码，不配任何文字。两张都是重新生成的干净码（720×720，纠错 H，中间是平台图标），
+  text: '如果这个工具为您提供了方便，不妨给作者一点鼓励～',
+  // 两张都是重新生成的干净码（720×720，纠错 H，中间是平台图标），
   // 不是海报截图——海报上有实名和头像，而且两家尺寸对不齐。
   // 两张收款码放 assets/ 下，文件名照这里写。只要「收款码」，别放「付款码」。
   codes: [
@@ -45,6 +46,7 @@ export async function tipHtml(compact) {
   if (!codes.length) return ''
   return `
   <section class="tip ${compact ? 'tip-compact' : ''}">
+    ${TIP.text ? `<p class="tip-text">${esc(TIP.text)}</p>` : ''}
     <div class="tip-qrs">
       ${codes.map(q => `
       <figure class="tip-qr">

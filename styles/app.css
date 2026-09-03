@@ -314,8 +314,9 @@ button { font: inherit; color: inherit; }
 .progress > i { display: block; height: 100%; background: var(--green); transition: width .2s; }
 
 /* ---------- 赞赏 ---------- */
-/* 只放码，不配文字。两张都是 720×720 的正方形，显示尺寸一致 */
-.tip { margin-top: 22px; display: flex; justify-content: center; }
+/* 一句话 + 两张 720×720 的正方形码，显示尺寸一致 */
+.tip { margin-top: 22px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.tip-text { margin: 0; color: var(--muted); font-size: 13.5px; text-align: center; }
 .tip-qrs { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
 .tip-qr { margin: 0; }
 .tip-qr img {
