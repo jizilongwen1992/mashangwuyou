@@ -6,14 +6,14 @@
  *   屏幕坐标 —— 单位坐标 × dispScale。鼠标事件先减去舞台位置再除以 dispScale 就回到单位坐标。
  */
 
-import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903162059'
-import * as job from '../job.js?v=20260903162059'
-import * as store from '../store.js?v=20260903162059'
-import * as pdfdoc from '../pdfdoc.js?v=20260903162059'
-import * as textpick from '../textpick.js?v=20260903162059'
-import { detectLines } from '../detect.js?v=20260903162059'
-import { loadBitmap } from '../redact.js?v=20260903162059'
-import { go } from '../main.js?v=20260903162059'
+import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903162421'
+import * as job from '../job.js?v=20260903162421'
+import * as store from '../store.js?v=20260903162421'
+import * as pdfdoc from '../pdfdoc.js?v=20260903162421'
+import * as textpick from '../textpick.js?v=20260903162421'
+import { detectLines } from '../detect.js?v=20260903162421'
+import { loadBitmap } from '../redact.js?v=20260903162421'
+import { go } from '../main.js?v=20260903162421'
 
 const HANDLE = 12          // 右下角把手的命中半径（屏幕像素）
 const TAP_SLOP = 4         // 移动不到这么多像素就算点一下
@@ -34,6 +34,7 @@ let draft = null           // 正在拖的新框（屏幕坐标）
 let picks = []             // 点字选的高亮（单位坐标）
 let gesture = null
 let picked = null
+let fillOpen = false       // 遮盖颜色是否展开。收起时只露当前那一块色，不占地方
 let mounted = false        // 离开本页后，还在跑的渲染不该再碰 DOM
 let renderToken = 0        // 翻页时丢弃过期的渲染结果
 let fileToken = 0          // 切文件时中止上一份文件的后台通读
@@ -154,12 +155,18 @@ function toolsHtml() {
     </div>
 
     <div class="tool-group">
-      <div class="rail-title">遮盖颜色</div>
+      <button class="fill-head" data-act="fill-toggle" aria-expanded="${fillOpen}">
+        <span class="rail-title" style="margin:0">遮盖颜色</span>
+        <span class="fill-now" style="--sw:${fill};--sw-line:${store.fillInfo(fill).line}"></span>
+        <span class="fill-name">${esc(store.fillInfo(fill).name)}</span>
+        <span class="fill-caret">${fillOpen ? '收起' : '更改'}</span>
+      </button>
+      ${fillOpen ? `
       <div class="swatches">
         ${store.FILLS.map(c => `<button class="swatch ${c.hex === fill ? 'on' : ''}" data-act="fill" data-hex="${c.hex}"
           title="${c.name}" style="--sw:${c.hex};--sw-line:${c.line}"><span>${c.name}</span></button>`).join('')}
       </div>
-      <div class="tool-note">当前：${esc(store.fillInfo(fill).name)}色。只影响导出的打码件，屏幕上始终半透明。</div>
+      <div class="tool-note">只影响导出的打码件，屏幕上始终半透明。</div>` : ''}
     </div>
 
     <div class="tool-group">
@@ -575,7 +582,8 @@ async function onClick(e) {
   if (act === 'mode-box') { mode = mode === 'box' ? 'edit' : 'box'; paintTools(); paintBoxes(); hint() }
   else if (act === 'mode-text') { mode = mode === 'text' ? 'edit' : 'text'; paintTools(); paintBoxes(); hint() }
   else if (act === 'mode-edit') { mode = 'edit'; draft = null; picks = []; paintTools(); paintBoxes(); hint() }
-  else if (act === 'fill') { store.writeFill(btn.dataset.hex); paintTools(); paintBoxes(); toast('导出用' + store.fillInfo(btn.dataset.hex).name + '色实色块盖住') }
+  else if (act === 'fill-toggle') { fillOpen = !fillOpen; paintTools() }
+  else if (act === 'fill') { store.writeFill(btn.dataset.hex); fillOpen = false; paintTools(); paintBoxes(); toast('导出用' + store.fillInfo(btn.dataset.hex).name + '色实色块盖住') }
   else if (act === 'accept-all') setRects(getRects().map(r => Object.assign({}, r, { accepted: true })), true)
   else if (act === 'undo') undo()
   else if (act === 'del') { if (!sel) { toast('先点一下某个框把它选中，再删'); return } delSelected() }
