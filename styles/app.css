@@ -55,21 +55,10 @@ button { font: inherit; color: inherit; }
   background: var(--green); color: #fff; font-size: 15px;
 }
 .brand-name { font-size: 17px; letter-spacing: .5px; }
-.brand-tag {
-  padding: 2px 7px; border-radius: 6px; background: var(--green-soft);
-  color: var(--green); font-size: 12px; font-weight: 700;
-}
 .nav { display: flex; gap: 20px; font-size: 14px; }
 .nav a { color: var(--muted); padding: 4px 0; border-bottom: 2px solid transparent; }
 .nav a:hover { color: var(--green); }
 .nav a.on { color: var(--ink); font-weight: 700; border-bottom-color: var(--green); }
-.local-badge {
-  margin-left: auto; display: flex; align-items: center; gap: 7px;
-  padding: 6px 12px; border-radius: 999px;
-  background: var(--green-soft); color: var(--green-dark);
-  font-size: 12.5px; font-weight: 600;
-}
-.local-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
 
 /* ---------- 页容器 ---------- */
 .view { max-width: 1040px; margin: 0 auto; padding: 36px 28px 72px; }
@@ -324,9 +313,7 @@ button { font: inherit; color: inherit; }
    手机上更趁手的其实是小程序版；网页版在手机上只求能用。 */
 @media (max-width: 720px) {
   .topbar { gap: 12px; padding: 10px 14px; }
-  .brand-tag { display: none; }
   .brand-name { font-size: 16px; }
-  .local-badge { padding: 5px 9px; font-size: 11.5px; white-space: nowrap; }
 
   .review { height: auto; min-height: calc(100vh - 52px); }
   .rv-head { flex-wrap: wrap; gap: 8px 12px; padding: 10px 14px; }
