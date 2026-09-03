@@ -6,14 +6,14 @@
  *   屏幕坐标 —— 单位坐标 × dispScale。鼠标事件先减去舞台位置再除以 dispScale 就回到单位坐标。
  */
 
-import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903163019'
-import * as job from '../job.js?v=20260903163019'
-import * as store from '../store.js?v=20260903163019'
-import * as pdfdoc from '../pdfdoc.js?v=20260903163019'
-import * as textpick from '../textpick.js?v=20260903163019'
-import { detectLines } from '../detect.js?v=20260903163019'
-import { loadBitmap } from '../redact.js?v=20260903163019'
-import { go } from '../main.js?v=20260903163019'
+import { $, $$, esc, toast, confirmBox, alertBox } from './kit.js?v=20260903163236'
+import * as job from '../job.js?v=20260903163236'
+import * as store from '../store.js?v=20260903163236'
+import * as pdfdoc from '../pdfdoc.js?v=20260903163236'
+import * as textpick from '../textpick.js?v=20260903163236'
+import { detectLines } from '../detect.js?v=20260903163236'
+import { loadBitmap } from '../redact.js?v=20260903163236'
+import { go } from '../main.js?v=20260903163236'
 
 const HANDLE = 12          // 右下角把手的命中半径（屏幕像素）
 const TAP_SLOP = 4         // 移动不到这么多像素就算点一下
@@ -94,8 +94,8 @@ function shell() {
     </div>
 
     <div class="rv-note">
-      <p><b>框是半透明的，方便你核对。</b>导出的打码件是不透明实色，盖住的内容看不见。</p>
-      <p><b>照片、公章、签名机器认不出。</b>这三类要自己拖框。</p>
+      <p>打码界面显示半透明框选为方便核对，<b>导出打码件为不透明实色体。</b></p>
+      <p><b>照片、公章、签名无法自动识别。</b>请自行框选。</p>
     </div>
 
     <div class="rv-body">
