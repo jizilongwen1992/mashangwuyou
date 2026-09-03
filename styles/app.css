@@ -183,9 +183,12 @@ button { font: inherit; color: inherit; }
 /* ---------- 审阅页 ---------- */
 /* 半透明 vs 实色的说明，必须显眼：不说清楚，人会以为打了还能看见 */
 .rv-note {
-  padding: 9px 22px; background: var(--warn-soft); border-bottom: 1px solid var(--warn-line);
-  color: #70420a; font-size: 13.5px; line-height: 1.5;
+  display: flex; gap: 10px 28px; flex-wrap: wrap;
+  padding: 8px 22px; background: var(--warn-soft); border-bottom: 1px solid var(--warn-line);
+  color: #70420a; font-size: 13px; line-height: 1.45;
 }
+.rv-note p { margin: 0; }
+.rv-note p::before { content: "· "; color: #b98a3a; }
 .rv-note b { color: #5a3400; }
 
 /* 收起态：一行标题 + 当前色 + 「更改」。展开才铺开九个色块 */
